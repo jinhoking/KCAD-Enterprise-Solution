@@ -1,51 +1,136 @@
---spring/spring
--- sys에서 계정생성
+-- DB: KCAD_DB생성
+-- 계정: KCAD_DB
+-- 비번: 1234
+
+--------------------------------------------------------
+-- 1. 시퀀스 생성 (Sequence)
+--------------------------------------------------------
+CREATE SEQUENCE BOARD_SEQ START WITH 101 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE MARKUP_SEQ START WITH 61 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE QNA_SEQ START WITH 61 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE REPLY_SEQ START WITH 41 INCREMENT BY 1 NOCACHE;
+
+--------------------------------------------------------
+-- 2. 테이블 생성 (Table DDL)
+--------------------------------------------------------
+
+-- MEMBER 테이블 (FK 참조를 위해 가장 먼저 생성)
 CREATE TABLE MEMBER (
-    userId VARCHAR2(100) PRIMARY KEY, -- 아이디
-    userPw VARCHAR2(256) NOT NULL,   -- 비밀번호 (암호화된 문자열 저장용, 길게 잡음)
-    userName VARCHAR2(100) NOT NULL   -- 이
-     regDate TIMESTAMP DEFAULT SYSDATE
+    USERID VARCHAR2(100) PRIMARY KEY,
+    USERPW VARCHAR2(256) NOT NULL,
+    USERNAME VARCHAR2(100) NOT NULL,
+    REGDATE TIMESTAMP (6) DEFAULT SYSDATE,
+    USEREMAIL VARCHAR2(100),
+    USERPHONE VARCHAR2(20),
+    USERADDR VARCHAR2(200),
+    USERJOB VARCHAR2(50),
+    USERDEPT VARCHAR2(50),
+    USERROLE VARCHAR2(20) DEFAULT 'USER'
 );
+
+-- BOARD 테이블
 CREATE TABLE BOARD (
-    bId NUMBER(4) PRIMARY KEY,       -- 글 번호
-    bName VARCHAR2(50),              -- 작성자 (userId)
-    bTitle VARCHAR2(100),            -- 제목
-    bContent VARCHAR2(2000),         -- 내용
-    bDate TIMESTAMP DEFAULT SYSDATE, -- 작성일
-    bHit NUMBER(4) DEFAULT 0         -- 조회수
+    BID NUMBER(4,0) PRIMARY KEY,
+    BNAME VARCHAR2(50),
+    BTITLE VARCHAR2(100),
+    BCONTENT VARCHAR2(2000),
+    BDATE TIMESTAMP (6) DEFAULT SYSDATE,
+    BHIT NUMBER(4,0) DEFAULT 0,
+    FILENAME VARCHAR2(200),
+    BNOTICE CHAR(1) DEFAULT 'N',
+    BJOB VARCHAR2(50),
+    BDEPT VARCHAR2(50)
 );
-CREATE SEQUENCE BOARD_SEQ; -- 글 번호 자동 생성기
-ALTER TABLE BOARD ADD fileName VARCHAR2(200);
 
+-- MARKUP_BOARD 테이블
+CREATE TABLE MARKUP_BOARD (
+    B_NO NUMBER(4,0) PRIMARY KEY,
+    B_TITLE VARCHAR2(200) NOT NULL,
+    B_WRITER VARCHAR2(100),
+    B_FILEPATH VARCHAR2(500) NOT NULL,
+    B_REGDATE TIMESTAMP (6) DEFAULT SYSDATE,
+    B_JOB VARCHAR2(50),
+    B_DEPT VARCHAR2(50),
+    B_STATUS VARCHAR2(50),
+    B_CATEGORY VARCHAR2(50),
+    CONSTRAINT FK_MARKUP_WRITER FOREIGN KEY (B_WRITER) REFERENCES MEMBER (USERID) ON DELETE CASCADE
+);
+
+-- QNA_BOARD 테이블
+CREATE TABLE QNA_BOARD (
+    QID NUMBER(4,0) PRIMARY KEY,
+    QNAME VARCHAR2(20),
+    QTITLE VARCHAR2(100),
+    QCONTENT VARCHAR2(2000),
+    QDATE DATE DEFAULT SYSDATE,
+    QHIT NUMBER(4,0) DEFAULT 0,
+    QGROUP NUMBER(4,0),
+    QSTEP NUMBER(4,0),
+    QINDENT NUMBER(4,0),
+    QSECRET CHAR(1) DEFAULT 'N',
+    QNOTICE CHAR(1) DEFAULT 'N',
+    QPARENTNAME VARCHAR2(20),
+    QJOB VARCHAR2(50),
+    QDEPT VARCHAR2(50)
+);
+
+-- REPLY 테이블
 CREATE TABLE REPLY (
-    rId NUMBER(4) PRIMARY KEY,       -- 댓글 번호
-    bId NUMBER(4),                   -- 원본 글 번호 (어떤 글의 댓글인지)
-    rName VARCHAR2(50),              -- 댓글 작성자
-    rContent VARCHAR2(500),          -- 댓글 내용
-    rDate TIMESTAMP DEFAULT SYSDATE,
-    CONSTRAINT FK_BOARD_REPLY FOREIGN KEY(bId) REFERENCES BOARD(bId) ON DELETE CASCADE
-);
-CREATE SEQUENCE REPLY_SEQ;
-
-
-CREATE TABLE qna_board (
-    qId NUMBER(4) PRIMARY KEY,      -- 글 번호
-    qName VARCHAR2(20),             -- 작성자
-    qTitle VARCHAR2(100),           -- 제목
-    qContent VARCHAR2(2000),        -- 내용
-    qDate DATE DEFAULT SYSDATE,     -- 작성일
-    qHit NUMBER(4) DEFAULT 0,       -- 조회수
-    qGroup NUMBER(4),               -- (답글용) 그룹 번호
-    qStep NUMBER(4),                -- (답글용) 순서
-    qIndent NUMBER(4)               -- (답글용) 들여쓰기
+    RID NUMBER(4,0) PRIMARY KEY,
+    BID NUMBER(4,0),
+    RNAME VARCHAR2(50),
+    RCONTENT VARCHAR2(500),
+    RDATE TIMESTAMP (6) DEFAULT SYSDATE,
+    R_JOB VARCHAR2(50),
+    R_DEPT VARCHAR2(50),
+    CONSTRAINT FK_BOARD_REPLY FOREIGN KEY (BID) REFERENCES BOARD (BID) ON DELETE CASCADE
 );
 
-CREATE SEQUENCE qna_seq;
+--------------------------------------------------------
+-- 3. 데이터 삽입 (Data Insertion)
+--------------------------------------------------------
+-- MEMBER 데이터
+Insert into MEMBER (USERID,USERPW,USERNAME,REGDATE,USEREMAIL,USERPHONE,USERADDR,USERJOB,USERDEPT,USERROLE) values ('wang','f8638b979b2f4f793ddb6dbd197e0ee25a7a6ea32b0ae22f5e3c5d119d839e75','wang',to_timestamp('25/12/24 10:35:50','RR/MM/DD HH24:MI:SS'),'w@w.com','010-8765-4321','서울','설계자','전기','USER');
+Insert into MEMBER (USERID,USERPW,USERNAME,REGDATE,USEREMAIL,USERPHONE,USERADDR,USERJOB,USERDEPT,USERROLE) values ('admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','admin',to_timestamp('25/12/22 10:43:48','RR/MM/DD HH24:MI:SS'),null,null,null,'관리자',null,'USER');
+Insert into MEMBER (USERID,USERPW,USERNAME,REGDATE,USEREMAIL,USERPHONE,USERADDR,USERJOB,USERDEPT,USERROLE) values ('user','fe2592b42a727e977f055947385b709cc82b16b9a87f88c6abf3900d65d0cdc3','user',to_timestamp('25/12/24 10:23:00','RR/MM/DD HH24:MI:SS'),'user@user.com','010-1234-5678','인천','설계자','전기','USER');
 
+-- BOARD 데이터
+Insert into BOARD (BID,BNAME,BTITLE,BCONTENT,BDATE,BHIT,FILENAME,BNOTICE,BJOB,BDEPT) values (83,'admin','안녕하세요. 관리자입니다.','자유롭게 이용하세요.',to_timestamp('25/12/24 12:04:46','RR/MM/DD HH24:MI:SS'),3,null,'N',null,null);
+Insert into BOARD (BID,BNAME,BTITLE,BCONTENT,BDATE,BHIT,FILENAME,BNOTICE,BJOB,BDEPT) values (81,'user','안녕하세요.','도면 이미지 공유드립니다.',to_timestamp('25/12/24 10:34:34','RR/MM/DD HH24:MI:SS'),6,'027350f5-ada6-4b53-b809-6af3eba7d882_drawing_cad.png',null,null,null);
 
-INSERT INTO qna_board (qId, qName, qTitle, qContent, qGroup, qStep, qIndent)
-VALUES (qna_seq.nextval, 'admin', '무엇이든 물어보세요', '고객센터가 오픈되었습니다.', qna_seq.currval, 0, 0);
+-- MARKUP_BOARD 데이터
+Insert into MARKUP_BOARD (B_NO,B_TITLE,B_WRITER,B_FILEPATH,B_REGDATE,B_JOB,B_DEPT,B_STATUS,B_CATEGORY) values (14,'아파트 도면','admin','ffae35b2-b961-4da0-8205-e044abec3fa9_drawing_cad.png',to_timestamp('25/12/23 16:16:44','RR/MM/DD HH24:MI:SS'),'관리자',null,'검토완료','설계도');
+Insert into MARKUP_BOARD (B_NO,B_TITLE,B_WRITER,B_FILEPATH,B_REGDATE,B_JOB,B_DEPT,B_STATUS,B_CATEGORY) values (42,'도면 검토 의견ㅇㅂㅇ','wang','MARKUP_1766541122371.png',to_timestamp('25/12/24 10:52:02','RR/MM/DD HH24:MI:SS'),'설계자','전기','검토중','수정요청');
 
 
 COMMIT;
+
+
+ALTER TABLE MARKUP_BOARD ADD b_comment VARCHAR2(1000);
+COMMIT;
+
+SELECT B_NO, B_TITLE, B_STATUS FROM MARKUP_BOARD WHERE B_NO = 62;
+
+
+-- 1. 회사 정보 저장소
+CREATE TABLE COMPANY (
+    COMP_ID VARCHAR2(50) PRIMARY KEY,
+    COMP_NAME VARCHAR2(100) NOT NULL,
+    LOGO_IMG VARCHAR2(200) -- 회사별 로고 파일명 (예: a_logo.png)
+);
+
+-- 2. 테스트 데이터 (A건설, B건설 등록)
+INSERT INTO COMPANY VALUES ('A_CONSTRUCT', 'A건설', 'a_logo.png');
+INSERT INTO COMPANY VALUES ('B_HOMETOWN', 'B홈타운', 'b_logo.png');
+
+-- 3. 회원 테이블에 어느 회사 소속인지 컬럼 추가
+ALTER TABLE MEMBER ADD (COMP_ID VARCHAR2(50));
+
+-- 4. 기존 계정들 회사 지정 (테스트용)
+UPDATE MEMBER SET COMP_ID = 'A_CONSTRUCT' WHERE USERID = 'admin';
+
+-- 최종 커밋
+COMMIT;
+
+
 
