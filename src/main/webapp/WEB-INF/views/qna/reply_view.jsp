@@ -20,15 +20,21 @@
             </div>
 
             <form action="${path}/qna/reply" method="post">
+                
                 <input type="hidden" name="qId" value="${reply_view.qId}">
                 <input type="hidden" name="qGroup" value="${reply_view.qGroup}">
                 <input type="hidden" name="qStep" value="${reply_view.qStep}">
                 <input type="hidden" name="qIndent" value="${reply_view.qIndent}">
                 <input type="hidden" name="qSecret" value="${reply_view.qSecret}">
 
+                <%-- [핵심 추가] 원글 작성자의 이름을 qParentName으로 서버에 전달 --%>
+                
+                <input type="hidden" name="qParentName" value="${reply_view.qName}">
+
                 <div class="reply-form-row">
                     <label class="reply-label">작성자</label>
-                    <input type="text" class="reply-input-fixed" value="${sessionScope.userName}" readonly>
+                    
+                    <input type="text" name="qName" class="reply-input-fixed" value="${sessionScope.userName}" readonly>
                 </div>
 
                 <div class="reply-form-row">

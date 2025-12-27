@@ -186,10 +186,7 @@ public class BoardController {
         // 보안 체크
         String userName = (String) session.getAttribute("userName");
         if (userName == null) { return "redirect:/login"; }
-        
-        // 수정할 때 작성자는 변하지 않지만, 혹시 모르니 세션값이나 기존값 유지 필요
-        // (여기서는 간단히 제목, 내용만 업데이트한다고 가정)
-        
+       
         boardService.modify(dto);
         
         return "redirect:/board/view?bId=" + dto.getbId(); // 수정 후 상세페이지로 복귀
@@ -202,7 +199,7 @@ public class BoardController {
         String userName = (String) session.getAttribute("userName");
         if (userName == null) { return "redirect:/login"; }
 
-        //  본인 글인지 확인 (DB한번 더 조회해서 체크하는게 안전함)
+        //  본인 글인지 확인
         BoardDto dto = boardService.content(bId);
         if (!userName.equals(dto.getbName())) {
              return "redirect:/board/list"; // 남의 글 삭제 시도 차단

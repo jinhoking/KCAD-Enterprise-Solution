@@ -53,7 +53,7 @@ public class MarkupController {
         return "markup/markup"; 
     }
 
-    // 3. [중요] 최초 도면 업로드 처리 (파일 저장 후 편집기로 이동)
+    // 3. 최초 도면 업로드 처리 (파일 저장 후 편집기로 이동)
     @PostMapping("/uploadDrawing")
     public String uploadDrawing(@ModelAttribute MarkupDto dto, 
                                 @RequestParam("file") MultipartFile file, 
@@ -76,7 +76,7 @@ public class MarkupController {
         }
     }
 
-    // 4. [중요] 캔버스 마킹 이미지 최종 저장 (AJAX 호출)
+    // 4. 캔버스 마킹 이미지 최종 저장 (AJAX 호출)
     @PostMapping("/markup/save")
     @ResponseBody
     public Map<String, String> saveMarkup(@RequestBody Map<String, String> params, HttpSession session) {
@@ -103,7 +103,7 @@ public class MarkupController {
             dto.setB_status("검토중"); // 초기 상태 설정
             
             if(loginUser != null) {
-                dto.setB_writer(loginUser.getUserName()); // 이름
+                dto.setB_writer(loginUser.getUserId()); // 아이디
                 dto.setB_job(loginUser.getUserJob());     // 직무
                 dto.setB_dept(loginUser.getUserDept());   // 부서
             }

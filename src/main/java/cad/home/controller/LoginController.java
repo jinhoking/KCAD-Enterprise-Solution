@@ -78,7 +78,7 @@ public class LoginController {
 	    }
 	}
 
-	// [수정] 로그아웃 시 세션을 비우더라도 어느 회사였는지는 기억했다가 다시 그 회사 대문으로 보내기
+	// 로그아웃 시 세션을 비우더라도 어느 회사였는지는 기억했다가 다시 그 회사 대문으로 보내기
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 	    CompanyDto currentComp = (CompanyDto) session.getAttribute("currentComp");
