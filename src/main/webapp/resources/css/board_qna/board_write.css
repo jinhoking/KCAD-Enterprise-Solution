@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+/* [글쓰기 전용 스타일] */
+body {
+    background-color: #f0f4f8;
+    margin: 0;
+}
+.a { text-decoration: none !important; }
+.write-wrapper { 
+    max-width: 850px; 
+    margin: 0 auto; 
+    /* 네비바 높이가 보통 70~80px이므로 상단 여백을 120px 정도로 넉넉히 줍니다 */
+    padding: 110px 20px 60px 20px; 
+}
+
+.board-card {
+    background-color: #fff;
+    padding: 45px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.board-title {
+    font-size: 2em; 
+    color: #333; 
+    margin-bottom: 35px;
+    text-align: center; 
+    font-weight: bold;
+}
+
+/* 공지사항 체크박스 영역 디자인 개선 */
+.notice-area {
+    background-color: #fff5f5;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: 1px solid #ffe3e3;
+    margin-bottom: 25px;
+}
+
+.input-group { margin-bottom: 25px; text-align: left; }
+.input-group label { 
+    display: block; 
+    margin-bottom: 10px; 
+    font-weight: 600; 
+    color: #444; 
+    font-size: 15px;
+}
+
+.input-field {
+    width: 100%; 
+    padding: 14px;
+    border: 1px solid #ddd; 
+    border-radius: 8px;
+    font-size: 16px; 
+    outline: none;
+    box-sizing: border-box; /* 패딩 포함 너비 계산 */
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #0696d7;
+    box-shadow: 0 0 0 3px rgba(6, 150, 215, 0.1);
+}
+
+/* 읽기 전용 필드 스타일 */
+.input-field[readonly] {
+    background-color: #f8f9fa;
+    color: #888;
+    border-color: #eee;
+}
+
+textarea.input-field { height: 350px; resize: none; line-height: 1.6; }
+
+/* 버튼 그룹: 회원가입 페이지 버튼 스타일과 통일 */
+.btn-group { 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+    margin-top: 40px; 
+}
+
+.btn {
+    flex: 1; /* 버튼 너비 균등 배분 */
+    max-width: 200px;
+    height: 52px;
+    border: none; 
+    border-radius: 8px;
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-submit { background-color: #0696d7; color: white; }
+.btn-submit:hover { 
+    background-color: #057fb8; 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(6, 150, 215, 0.3);
+}
+
+.btn-cancel { background-color: #6c757d; color: white; }
+.btn-cancel:hover { 
+    background-color: #5a6268; 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

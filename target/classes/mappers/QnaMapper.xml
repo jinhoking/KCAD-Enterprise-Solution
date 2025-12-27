@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cad.home.dao.QnaDao">
+
+        <select id="list" parameterType="hashmap" resultType="cad.home.dto.QnaDto">
+      SELECT * FROM (
+        SELECT A.*, ROWNUM as rNum FROM (
+            
+            SELECT 
+                q.qId, q.qName, q.qTitle, q.qContent, q.qHit, q.qDate,
+                q.qGroup, q.qStep, q.qIndent, q.qSecret, q.qNotice, q.qParentName,
+                m.userDept as qDept,  m.userJob as qJob     FROM qna_board q
+            LEFT JOIN MEMBER m ON q.qName = m.userId <where>
+                <if test="keyword != null and keyword != ''">
+                    <choose>
+                        <when test="searchType == 'title'"> q.qTitle LIKE '%' || #{keyword} || '%' </when>
+                        <when test="searchType == 'content'"> q.qContent LIKE '%' || #{keyword} || '%' </when>
+                        <when test="searchType == 'writer'"> q.qName LIKE '%' || #{keyword} || '%' </when>
+                    </choose>
+                </if>
+            </where>
+            
+            ORDER BY NVL(q.qNotice, 'N') DESC, q.qGroup DESC, q.qStep ASC
+            
+        ) A
+    )
+    WHERE rNum BETWEEN #{start} AND #{end}
+    </select>
+    
+    <select id="count" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) FROM qna_board
+        <if test="keyword != null and keyword != ''">
+            WHERE 
+            <choose>
+                <when test="searchType == 'title'"> qTitle LIKE '%' || #{keyword} || '%' </when>
+                <when test="searchType == 'content'"> qContent LIKE '%' || #{keyword} || '%' </when>
+                <when test="searchType == 'writer'"> qName LIKE '%' || #{keyword} || '%' </when>
+            </choose>
+        </if>
+    </select>
+
+    <insert id="write" parameterType="cad.home.dto.QnaDto">
+        INSERT INTO qna_board (qId, qName, qTitle, qContent, qHit, qDate, qGroup, qStep, qIndent, qSecret, qNotice) 
+        VALUES (
+            qna_seq.nextval, 
+            #{qName}, 
+            #{qTitle}, 
+            #{qContent}, 
+            0, 
+            SYSDATE, 
+            qna_seq.currval, 
+            0, 
+            0,
+            #{qSecret, jdbcType=VARCHAR},
+            #{qNotice, jdbcType=VARCHAR}  )
+    </insert>
+
+    <insert id="reply" parameterType="cad.home.dto.QnaDto">
+        INSERT INTO qna_board (qId, qName, qTitle, qContent, qGroup, qStep, qIndent, qSecret,qNotice, qParentName)
+        VALUES (
+            qna_seq.nextval, 
+            #{qName}, 
+            #{qTitle}, 
+            #{qContent}, 
+            #{qGroup},
+            #{qStep} + 1,
+            #{qIndent} + 1,
+            #{qSecret, jdbcType=VARCHAR},
+            #{qNotice, jdbcType=VARCHAR},
+            #{qParentName, jdbcType=VARCHAR}  )
+    </insert>
+
+    <select id="view" parameterType="int" resultType="cad.home.dto.QnaDto">
+        SELECT * FROM qna_board WHERE qId = #{qId}
+    </select>
+    
+    <update id="upHit" parameterType="int">
+        UPDATE qna_board SET qHit = qHit + 1 WHERE qId = #{qId}
+    </update>
+    
+    <update id="modify" parameterType="cad.home.dto.QnaDto">
+        UPDATE qna_board 
+        SET qTitle = #{qTitle}, qContent = #{qContent} 
+        WHERE qId = #{qId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM qna_board WHERE qId = #{qId}
+    </delete>
+    
+    <update id="replyShape" parameterType="cad.home.dto.QnaDto">
+        UPDATE qna_board 
+        SET qStep = qStep + 1
+        WHERE qGroup = #{qGroup} AND qStep > #{qStep}
+    </update>
+    
+
+</mapper>

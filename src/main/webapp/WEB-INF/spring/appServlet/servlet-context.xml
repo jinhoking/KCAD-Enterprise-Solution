@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring" 
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd"> <annotation-driven /> 
+	
+	<resources mapping="/resources/**" location="/resources/" /> 
+	<resources mapping="/img/**" location="file:C:/upload/markup/" />
+	
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<beans:property name="prefix" value="/WEB-INF/views/" /> 
+		<beans:property name="suffix" value=".jsp" /> 
+	</beans:bean> 
+	
+	<context:component-scan base-package="cad.home" />
+	
+	<mybatis-spring:scan base-package="cad.home.mapper" />
+	
+
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" > 
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> 
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" /> 
+		<beans:property name="username" value="KCAD_DB" /> 
+		<beans:property name="password" value="1234" /> 
+	</beans:bean>
+	
+	<beans:bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
+    <beans:property name="dataSource" ref="dataSource" />
+    </beans:bean> 
+<!--   <beans:bean name="dataSource" -->
+<!--       class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!--       <beans:property name="driverClassName" -->
+<!--          value="com.mysql.cj.jdbc.Driver" /> -->
+<!--       <beans:property name="url" -->
+<!--          value="jdbc:mysql://localhost:3306/springdb?serverTimezone=UTC" /> -->
+<!--       <beans:property name="username" value="spring" /> -->
+<!--       <beans:property name="password" value="spring" /> -->
+<!--    </beans:bean> -->
+
+
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="mapperLocations" value="classpath:mappers/*.xml" />
+	</beans:bean>
+
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+	</beans:bean>	
+
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" /> 
+		<beans:property name="defaultEncoding" value="utf-8" />
+	</beans:bean>
+</beans:beans>

@@ -1,0 +1,162 @@
+/* 기본 스타일 초기화 및 폰트 설정 */
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap')
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #e9ebee;
+	display: flex;
+	justify-content: center; /* 가로 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	min-height: 100vh; /* 뷰포트 전체 높이를 차지하도록 */
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #0696d7; /* KCAD 메인 색상 */
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* 본문 컨테이너를 중앙으로 잡아주는 설정 */
+.auth-wrapper {
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center;     /* 세로 중앙 */
+    min-height: calc(100vh - 70px); /* 화면 전체 높이에서 네비바 높이 제외 */
+    padding-top: 70px; /* 네비바에 가려지지 않게 여백 추가 */
+}
+/* 로그인 컨테이너 */
+.login-container {
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	width: 600px; /* 로그인 박스 너비 */
+	padding: 40px;
+	text-align: center;
+}
+
+/* 로그인 헤더 (로고 및 제목) */
+.login-header {
+	margin-bottom: 30px;
+}
+
+.login-logo {
+	width: 150px; /* 로고 크기 조정 */
+	margin-bottom: 20px;
+}
+
+.login-header h2 {
+	font-size: 1.8em;
+	color: #333;
+}
+
+/* 로그인 폼 */
+.login-form {
+	display: flex;
+	flex-direction: column; /* 요소들을 세로로 정렬 */
+}
+
+.input-group {
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+.input-group label {
+	display: block;
+	font-size: 0.9em;
+	color: #555;
+	margin-bottom: 8px;
+	font-weight: bold;
+}
+
+.input-group input[type="text"], .input-group input[type="password"] {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 1em;
+	transition: border-color 0.3s;
+}
+
+.input-group input[type="text"]:focus, .input-group input[type="password"]:focus
+	{
+	border-color: #0696d7; /* 포커스 시 테두리 색상 변경 */
+	outline: none; /* 기본 아웃라인 제거 */
+	box-shadow: 0 0 0 2px rgba(6, 150, 215, 0.2); /* 은은한 그림자 효과 */
+}
+
+/* 로그인 정보 기억하기 체크박스 */
+.remember-me {
+	display: flex; /* 체크박스와 라벨을 한 줄에 */
+	align-items: center;
+	margin-bottom: 25px;
+	font-size: 0.9em;
+	color: #666;
+}
+
+.remember-me input[type="checkbox"] {
+	margin-right: 8px;
+	transform: scale(1.2); /* 체크박스 크기 키우기 */
+}
+
+/* 로그인 버튼 */
+.login-button {
+	background-color: #0696d7;
+	color: #fff;
+	padding: 14px;
+	border: none;
+	border-radius: 5px;
+	font-size: 1.1em;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	margin-bottom: 20px;
+}
+
+.login-button:hover {
+	background-color: #0477ab;
+}
+
+/* 하단 링크들 */
+.login-links {
+	display: flex;
+	justify-content: space-between; /* 링크들을 양쪽으로 분리 */
+	font-size: 0.9em;
+}
+
+.login-links a {
+	color: #0696d7;
+}
+
+.cancel-button {
+	background-color: #0696d7;
+	color: #fff;
+	padding: 14px;
+	border: none;
+	border-radius: 5px;
+	font-size: 1.1em;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	margin-bottom: 20px;
+}
+
+.cancel-button:hover {
+    background-color: #0477ab;
+}
+.cancel-button:disabled {
+    /* 기존 display: flex 설정은 버튼에 어울리지 않으므로 배경색 정도로 수정 */
+    background-color: #ccc;
+    cursor: not-allowed;
+}

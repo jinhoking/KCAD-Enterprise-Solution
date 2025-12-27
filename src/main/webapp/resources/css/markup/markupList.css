@@ -1,0 +1,204 @@
+/* 1. 기본 레이아웃 및 공통 요소 */
+body { 
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f0f4f8; 
+    margin: 0; 
+    padding: 0; 
+}
+
+.gallery-wrapper { 
+    max-width: 1400px; 
+    margin: 100px auto 50px auto; 
+    padding: 0 20px; 
+}
+
+h2 { 
+    margin: 0; 
+    font-size: 26px; 
+    color: #222; 
+    text-align: left; /* 헤더 구조에 맞춤 */
+}
+
+/* 2. 헤더 (검색/등록 영역) */
+.gallery-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 30px; 
+    border-bottom: 2px solid #333; 
+    padding-bottom: 15px;
+}
+
+.header-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.search-form { 
+    display: flex; 
+    gap: 5px; 
+    height: 42px; 
+}
+
+.search-form input { 
+    padding: 0 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    width: 220px; 
+}
+
+/* 3. 메인 컨텐츠 및 그리드 시스템 */
+.gallery-main-container {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 20px; 
+    position: relative;
+}
+
+.markup-gallery {
+    display: grid;
+    /* 고정 4열 방식과 반응형 방식의 조화 */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 25px;
+    flex-grow: 1;
+}
+
+/* 반응형 처리 (화면이 작아질 때) */
+@media (max-width: 1024px) {
+    .markup-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .markup-gallery { grid-template-columns: 1fr; }
+}
+
+/* 4. 카드 디자인 (통합 버전) */
+.markup-card {
+    background: white; 
+    border-radius: 12px; 
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+    transition: transform 0.3s, box-shadow 0.3s; 
+    border: 1px solid #eee;
+}
+
+.markup-card:hover { 
+    transform: translateY(-8px); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
+}
+
+/* 이미지 영역 */
+.card-img-box { 
+    width: 100%; 
+    height: 180px; 
+    background: #222; 
+    overflow: hidden; 
+    display: block; 
+}
+
+.card-img-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* 이미지가 꽉 차게 */
+    display: block;
+}
+
+/* 텍스트 정보 영역 */
+.card-info { padding: 15px; }
+
+.card-title { 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #333; 
+    text-decoration: none; 
+    display: block; 
+    margin-bottom: 10px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; /* 긴 제목 생략 처리 */
+}
+
+.card-title:hover { color: #007bff; }
+
+.card-meta { 
+    font-size: 12px; 
+    color: #777; 
+    display: flex; 
+    justify-content: space-between; 
+}
+
+/* 5. 컴포넌트 (버튼, 뱃지, 화살표) */
+.btn-search { 
+    background: #333; 
+    color: white; 
+    border: none; 
+    padding: 0 20px; 
+    border-radius: 4px; 
+    font-weight: bold; 
+    cursor: pointer; 
+}
+
+.btn-register { 
+    background: #007bff; 
+    color: white; 
+    text-decoration: none; 
+    padding: 0 20px; 
+    height: 42px; 
+    display: flex; 
+    align-items: center; 
+    border-radius: 4px; 
+    font-weight: bold; 
+    transition: background 0.2s;
+}
+
+.btn-register:hover { background: #0056b3; }
+
+
+
+/* 뱃지 스타일 */
+.status-badge { 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-weight: bold; 
+    font-size: 11px; 
+    color: #fff; 
+    margin-bottom: 8px; 
+    display: inline-block; 
+}
+.status-wait { background-color: #ffc107; color: #212529; }
+.status-ing { background-color: #17a2b8; }
+.status-ok { background-color: #28a745; }
+.status-no { background-color: #dc3545; }
+
+/* 6. 페이징 */
+.pagination { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 50px; 
+    gap: 8px; 
+}
+
+.page-item {
+    width: 35px; 
+    height: 35px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    border-radius: 50%; 
+    border: 1px solid #ddd; 
+    background: white; 
+    color: #555; 
+    text-decoration: none; 
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.page-item:hover { background: #f0f0f0; }
+.page-item.active { 
+    background: #007bff; 
+    color: white; 
+    border-color: #007bff; 
+    box-shadow: 0 3px 8px rgba(0,123,255,0.3); 
+}

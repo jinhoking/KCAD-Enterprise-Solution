@@ -1,0 +1,67 @@
+/* [Partners 섹션: 다시 '카드' 모양으로 복구] */
+.partner-banner {
+    /* 1. 카드 모양 잡기 (핵심) */
+    max-width: 1200px;      /* 윗쪽 섹션들처럼 폭을 제한 */
+    margin: 60px auto;      /* 위아래 60px 띄우고, 좌우는 중앙 정렬 */
+    border-radius: 20px;    /* 모서리 둥글게 */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* 살짝 그림자 줘서 입체감 */
+    
+    /* 2. 내부 설정 */
+    background-color: #fff; /* 배경 흰색 */
+    padding: 50px 0;        /* 안쪽 여백 */
+    text-align: center;
+    overflow: hidden;       /* 둥근 모서리 밖으로 내용 튀어나감 방지 */
+}
+
+/* [Partners 제목 스타일] */
+.partner-banner h2 {
+    /* 인라인 스타일(style="...") 대신 여기서 관리하는 게 깔끔합니다 */
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: serif;     /* 명조체 느낌 */
+    font-style: italic;     /* 기울임 */
+    color: #333;
+    margin-top : 20px;
+    margin-bottom: 30px;
+    display: block;
+}
+
+/* [Swiper 컨테이너 중앙 정렬] */
+.partner-banner .swiper {
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* [로고 이미지 스타일: 설정 날아간 것 복구!] */
+./* [Swiper Slide 설정 추가] */
+/* 이미지가 슬라이드 칸의 정중앙에 오도록 Flexbox 사용 */
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* 혹시라도 넘치면 자르기 */
+}
+
+/* [로고 이미지 스타일 수정] */
+.swiper-slide img {
+    height: 50px;           /* 높이 고정 */
+    width: auto;            /* 비율 유지 */
+    
+    /* [★핵심 수정★] 이미지가 슬라이드 칸보다 크면 줄여라! */
+    max-width: 100%;        
+    
+    object-fit: contain;    /* 찌그러짐 방지 */
+    
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    user-select: none; 
+    -webkit-user-drag: none;
+}
+
+/* [마우스 올렸을 때 효과] */
+.swiper-slide img:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}

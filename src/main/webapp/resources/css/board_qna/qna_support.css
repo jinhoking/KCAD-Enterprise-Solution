@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+body {
+    background-color: #f0f4f8; /* 다른 페이지와 배경색 통일 */
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.a { text-decoration: none !important; }
+.write-form-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 120px 20px 60px 20px; /* 네비바 간격 확보 */
+    box-sizing: border-box;
+}
+
+.board-card { /* 일관성을 위해 카드 박스 스타일 적용 */
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-header h2 { color: #6c757d; font-size: 16px; margin-bottom: 10px; }
+.form-header h1 { color: #333; font-size: 32px; font-weight: 700; margin: 0; }
+
+.form-group { margin-bottom: 25px; }
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 15px;
+}
+
+.input-field {
+    width: 100%;
+    height: 54px;
+    padding: 0 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.input-field:focus { border-color: #0696d7; box-shadow: 0 0 0 3px rgba(6, 150, 215, 0.1); }
+.input-field[readonly] { background-color: #f8f9fa; color: #555; }
+
+textarea.input-field {
+    height: auto;
+    min-height: 250px;
+    padding: 15px;
+    resize: none;
+    line-height: 1.6;
+}
+
+/* 하단 버튼 그룹: 자유게시판과 1:1 비율로 통일 */
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.btn {
+    flex: 1; /* 1:1 비율 */
+    max-width: 250px;
+    height: 54px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-cancel { background-color: #6c757d; color: white; }
+.btn-submit { background-color: #0696d7; color: white; }
+
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }

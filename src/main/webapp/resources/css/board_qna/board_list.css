@@ -1,0 +1,126 @@
+@charset "UTF-8";
+
+/* [게시판 컨테이너] */
+.board-wrapper {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    /* 푸터와 겹치지 않게 하단 여백 확보 */
+    padding-bottom: 80px; 
+}
+a { text-decoration: none !important; color: inherit; }
+.board-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.board-title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #333;
+}
+
+/* [검색 및 상단 영역] */
+.board-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+}
+.total-count { font-size: 0.95em; color: #666; }
+.total-count strong { color: #0696d7; }
+
+.search-box { display: flex; gap: 5px; }
+.search-select, .search-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+}
+.search-input:focus { border-color: #0696d7; }
+.search-btn {
+    background-color: #0696d7; color: white;
+    border: none; padding: 8px 16px; border-radius: 4px;
+    cursor: pointer; font-weight: bold;
+}
+.search-btn:hover { background-color: #0477ab; }
+
+/* [테이블] */
+.board-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+.board-table th {
+    background-color: #f8f9fa;
+    padding: 15px; font-weight: bold; color: #555;
+    border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
+}
+.board-table td {
+    padding: 15px; border-bottom: 1px solid #eee;
+    text-align: center; font-size: 0.95em; color: #555;
+}
+.board-table td.title-col { text-align: left; padding-left: 20px; }
+.board-table a:hover { text-decoration: underline; color: #0696d7; }
+
+/* =========================================
+   [페이징 & 하단 버튼 스타일] 
+   jsp <style>에 있던걸 여기로 옮겨서 통합함
+   ========================================= */
+
+/* [하단 영역 전체 틀] */
+.board-footer {
+    position: relative;      /* 글쓰기 버튼(absolute)의 기준점 */
+    display: flex;
+    justify-content: center; /* 페이징을 중앙 정렬 */
+    align-items: center;
+    padding: 30px 0;
+    margin-top: 20px;
+}
+
+/* [페이징 숫자/버튼 컨테이너] */
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 20px;              /* 버튼 사이 간격 */
+    font-size: 15px;
+    color: #666;
+}
+
+/* [페이징 링크 공통] */
+.pagination a {
+    text-decoration: none;
+    color: #888;
+    padding: 5px 10px;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+/* 마우스 올렸을 때 */
+.pagination a:hover {
+    color: #0696d7;
+    font-weight: bold;
+}
+
+/* [현재 페이지 강조] */
+.pagination a.active {
+    color: #333;          
+    font-weight: 800;    
+    border-bottom: 2px solid #333; /* 밑줄 포인트 */
+}
+
+/* [글쓰기 버튼 - 오른쪽 끝 고정] */
+.btn-write {
+    position: absolute;  /* 부모(.board-footer) 기준으로 오른쪽 끝에 붙음 */
+    right: 0;           
+    
+    background-color: #0696d7;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.btn-write:hover {
+    background-color: #0477ab;
+}

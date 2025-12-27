@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+/* 전체 배경 및 여백 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #e9ebee; /* 글쓰기 페이지와 같은 회색 배경 */
+    color: #333;
+    margin: 0;
+    padding-top: 80px; /* 네비게이션 높이만큼 띄움 */
+}
+
+.reply-card-wrapper {
+    max-width: 850px;
+    margin: 100px auto;
+    padding: 0 20px;
+}
+
+/* 카드 본체 디자인 */
+.reply-card-container {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+    padding: 60px;
+    border: 1px solid #f0f2f5;
+}
+
+/* 헤더 영역 */
+.reply-card-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.category-badge {
+    display: block;
+    color: #008cd4;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.form-main-title {
+    font-size: 32px;
+    color: #1a1a1a;
+    font-weight: 800;
+    margin: 0;
+}
+
+/* 폼 요소 그룹 */
+.reply-form-row {
+    margin-bottom: 30px;
+}
+
+.reply-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: #4a4a4a;
+    margin-bottom: 12px;
+}
+
+/* 입력 필드 */
+.reply-input-field, .reply-textarea, .reply-input-fixed {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #edf0f5;
+    border-radius: 12px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.reply-input-fixed {
+    background-color: #f4f6f9;
+    color: #888;
+}
+
+.reply-textarea {
+    height: 280px;
+    resize: none;
+    line-height: 1.7;
+}
+
+.reply-input-field:focus, .reply-textarea:focus {
+    border-color: #008cd4;
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 140, 212, 0.08);
+}
+
+/* 버튼 그룹 및 밑줄 제거 */
+.reply-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 50px;
+    padding-top: 35px;
+    border-top: 2px solid #f8f9fa;
+}
+
+.reply-btn {
+    padding: 16px 50px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none !important; /* a 태그 밑줄 방지 */
+    display: inline-block;
+    border: none;
+}
+
+.btn-cancel-style {
+    background-color: #e9ecef;
+    color: #495057 !important;
+}
+
+.btn-submit-style {
+    background-color: #008cd4;
+    color: #ffffff !important;
+}
+
+.reply-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}

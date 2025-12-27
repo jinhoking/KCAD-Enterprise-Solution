@@ -1,0 +1,95 @@
+/* 기본 배경 및 컨테이너 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding-top: 80px;
+}
+
+.signup-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    width: 850px; /* 2단 구성을 위해 너비를 넓힘 */
+    margin-bottom: 50px;
+}
+
+.signup-container h2 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* 2단 배치를 위한 핵심 스타일 */
+.form-flex-wrapper {
+    display: flex;
+    gap: 40px; /* 왼쪽 오른쪽 사이 간격 */
+    text-align: left;
+}
+
+.form-section {
+    flex: 1; /* 반반씩 나눠가짐 */
+}
+
+.section-title {
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f4f8;
+    padding-bottom: 8px;
+    text-align: left;
+}
+
+/* 입력창 및 셀렉트 박스 공통 */
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+.input-group input, .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box; /* 패딩 포함 너비 계산 */
+}
+
+/* 주소창처럼 가로 전체를 써야하는 경우 */
+.full-width {
+    margin-top: 10px;
+}
+
+/* 버튼 스타일 (기존 유지) */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.signup-button {
+    flex: 1;
+    height: 52px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    color: white !important;
+}
+
+.signup-button { background-color: #0696d7; }
+.signup-button.cancel { background-color: #6c757d; }
+.signup-button:hover { opacity: 0.9; transform: translateY(-1px); }

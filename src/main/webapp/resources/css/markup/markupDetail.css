@@ -1,0 +1,74 @@
+@charset "UTF-8";
+ /* 1. 기본 레이아웃 및 폰트 */
+        body { background-color: #f0f2f5; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 0; color: #333; }
+        .container { max-width: 1000px; margin: 120px auto 50px auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; }
+
+        /* 2. 헤더 정보 */
+        .header { padding: 30px; border-bottom: 1px solid #eee; }
+        .header h2 { margin: 0; font-size: 24px; color: #222; display: flex; align-items: center; gap: 10px; }
+        .header .meta { margin-top: 15px; color: #888; font-size: 14px; display: flex; align-items: center; gap: 15px; }
+        .no-badge { background: #333; color: white; padding: 3px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; }
+        
+        /* 직무 뱃지 */
+        .role-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; color: #fff; }
+        .role-designer { background-color: #6f42c1; } 
+        .role-field { background-color: #fd7e14; }    
+        .role-general { background-color: #6c757d; }  
+
+        /* 3. 이미지 영역 */
+        .img-container { background-color: #1a1a1a; padding: 40px 20px; text-align: center; border-bottom: 1px solid #eee; }
+        .img-container img { max-width: 100%; height: auto; box-shadow: 0 5px 25px rgba(0,0,0,0.6); border-radius: 4px; }
+
+        /* 4. 상세 정보 텍스트 영역 */
+        .info-section { padding: 40px; }
+        .info-row { display: flex; margin-bottom: 20px; border-bottom: 1px solid #f2f2f2; padding-bottom: 15px; }
+        .info-label { width: 120px; font-weight: bold; color: #666; font-size: 15px; }
+        .info-value { flex: 1; color: #222; font-size: 15px; }
+
+        /* 5. ⭐ 버튼 그룹 CSS 보정 (핵심) ⭐ */
+        .btn-group { 
+            padding: 25px 40px; 
+            background: #fdfdfd; 
+            text-align: right; 
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end; /* 우측 정렬 */
+            gap: 10px; /* 버튼 간격 */
+        }
+        
+        /* 모든 버튼 공통 스타일 (a태그와 button태그 동일하게 보이도록) */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 42px; /* 높이 통일 */
+            padding: 0 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box; /* 패딩 계산 오류 방지 */
+        }
+        
+        .btn-modify { background: #28a745; color: white !important; } /* 초록 */
+        .btn-delete { background: #dc3545; color: white !important; } /* 빨강 */
+        .btn-list { background: #6c757d; color: white !important; }   /* 회색 */
+        
+        .btn:hover { opacity: 0.85; transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn:active { transform: translateY(0); }
+        
+        .status-badge {
+        padding: 5px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 14px;
+        color: #fff;
+        display: inline-block;
+    }
+    .status-wait { background-color: #ffc107; color: #000; } /* 노랑 (대기) */
+    .status-ing { background-color: #17a2b8; }              /* 하늘 (진행) */
+    .status-ok { background-color: #28a745; }               /* 초록 (완료) */
+    .status-no { background-color: #dc3545; }               /* 빨강 (반려) */

@@ -1,0 +1,164 @@
+@charset "UTF-8";
+:root {
+    --primary-color: #0696d7;    /* KCAD 로고 강조색인 블루 계열로 변경 */
+    --dark-color: #2c3e50;
+    --background-color: #c0c0c0;       /* 바탕색을 회색에서 화이트로 변경 */
+    --section-bg: #f9fbfd;       /* 입력 섹션은 아주 연한 블루톤 회색으로 */
+    --border-color: #e1e8ed;
+}
+
+body {
+    font-family: 'Noto Sans KR', 'Segoe UI', sans-serif;
+    background-color:  #f0f4f8;
+    margin: 0;
+    padding: 0;
+    /* 네비바가 고정(fixed)되어 있으므로 그 높이만큼 여백 확보 */
+    padding-top: 80px; 
+}
+
+.mypage-wrapper {
+    max-width: 850px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    /* 테두리를 더 부드럽게 강조 */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.mypage-header {
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+}
+
+.mypage-header h2 {
+    color: var(--dark-color);
+    margin: 0;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-section {
+    margin-bottom: 35px;
+    padding: 25px;
+    background-color: var(--section-bg);
+    border-radius: 10px;
+}
+
+.info-section h3 {
+    font-size: 1.05rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section h3::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background-color: var(--primary-color);
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group.full {
+    grid-column: span 2;
+}
+
+label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #4a5568;
+}
+
+input {
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(6, 150, 215, 0.1);
+}
+
+input[readonly] {
+    background-color: #edf2f7;
+    color: #718096;
+    border-color: #cbd5e0;
+    cursor: not-allowed;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.btn {
+    padding: 15px 50px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-save {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #057db3;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(6, 150, 215, 0.3);
+}
+
+.btn-cancel {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.btn-cancel:hover {
+    background-color: #cbd5e0;
+}
+
+/* 알림창 스타일 */
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    display: none;
+    font-weight: 500;
+}
+.alert-success { 
+    background-color: #ebfbee; 
+    color: #2f855a; 
+    border: 1px solid #c6f6d5; 
+}

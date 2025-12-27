@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cad.home.mapper.MarkupMapper">
+
+    <insert id="insertMarkup" parameterType="cad.home.dto.MarkupDto">
+    INSERT INTO MARKUP_BOARD (
+        B_NO,           B_TITLE, 
+        B_WRITER, 
+        B_FILEPATH, 
+        B_CATEGORY, 
+        B_STATUS, 
+        B_JOB, 
+        B_DEPT
+    ) VALUES (
+        MARKUP_SEQ.NEXTVAL, #{b_title, jdbcType=VARCHAR},
+        #{b_writer, jdbcType=VARCHAR},
+        #{b_filepath, jdbcType=VARCHAR},
+        #{b_category, jdbcType=VARCHAR},
+        #{b_status, jdbcType=VARCHAR},
+        #{b_job, jdbcType=VARCHAR},
+        #{b_dept, jdbcType=VARCHAR}
+    )
+</insert>
+
+    <select id="selectMarkupTotalCount" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM MARKUP_BOARD
+        WHERE 1=1
+        <if test="status != null and status != ''">
+            AND B_STATUS = #{status}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND B_TITLE LIKE '%' || #{keyword} || '%'
+        </if>
+    </select>
+
+    <select id="selectMarkupListSearch" parameterType="map" resultType="cad.home.dto.MarkupDto">
+    SELECT * FROM (
+        SELECT it.*, ROWNUM rn FROM (
+            SELECT * FROM MARKUP_BOARD
+            WHERE 1=1
+            <if test="status != null and status != ''">
+                AND B_STATUS = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND B_TITLE LIKE '%' || #{keyword} || '%'
+            </if>
+            ORDER BY B_NO DESC
+        ) it
+        WHERE ROWNUM &lt;= #{offset} + #{pageSize}
+    )
+    WHERE rn &gt; #{offset}
+</select>
+
+    <select id="selectMarkupDetail" resultType="cad.home.dto.MarkupDto">
+        SELECT * FROM MARKUP_BOARD WHERE B_NO = #{b_no}
+    </select>
+
+    <delete id="deleteMarkup">
+        DELETE FROM MARKUP_BOARD WHERE B_NO = #{b_no}
+    </delete>
+
+    <update id="updateMarkup" parameterType="cad.home.dto.MarkupDto">
+        UPDATE MARKUP_BOARD 
+        SET 
+            B_TITLE = #{b_title},
+            B_STATUS = #{b_status, jdbcType=VARCHAR},
+            B_CATEGORY = #{b_category, jdbcType=VARCHAR},
+            B_COMMENT = #{b_comment, jdbcType=VARCHAR}
+            <if test="b_filepath != null and b_filepath != ''">
+                , B_FILEPATH = #{b_filepath}
+            </if>
+        WHERE B_NO = #{b_no}
+    </update>
+    
+    <select id="selectMarkupList" resultType="cad.home.dto.MarkupDto">
+        SELECT * FROM MARKUP_BOARD ORDER BY B_NO DESC
+    </select>
+
+</mapper>

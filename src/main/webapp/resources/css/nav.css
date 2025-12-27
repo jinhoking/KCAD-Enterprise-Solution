@@ -1,0 +1,121 @@
+/* nav.css */
+
+/* 1. 네비바 전체 고정 및 배경 */
+.main-nav {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+/* 2. 레이아웃 정렬 */
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* 조금 더 넓게 조정 */
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 70px; /* 인덱스급 높이 */
+}
+
+/* 3. 로고 영역 (Home 버튼 크게 & 밑줄 제거) */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important; /* 강제 밑줄 제거 */
+    color: #333 !important;
+    gap: 10px;
+    outline: none !important;
+    user-select: none; /* 드래그 시 파란 블록 방지 */
+}
+
+.nav-logo img {
+    height: 40px; /* 큼직한 로고 사이즈 */
+    width: auto;
+    display: block;
+}
+
+.nav-logo span {
+    font-size: 22px; /* 인덱스와 동일한 큰 폰트 */
+    font-weight: 800;
+    color: #333 !important;
+    line-height: 1;
+    text-decoration: none !important;
+}
+
+/* 4. 메뉴 리스트 가로 정렬 */
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links > li {
+    margin-left: 25px;
+    position: relative;
+    list-style: none !important;
+}
+
+/* 5. 폰트 및 모든 링크 밑줄 절대 삭제 */
+.nav-links a, .dropbtn {
+    text-decoration: none !important; /* 로그인 페이지의 underline 속성 차단 */
+    color: #555 !important;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    display: block;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .dropbtn:hover {
+    color: #0696d7 !important;
+    text-decoration: none !important;
+}
+
+/* 6. 드롭다운 박스 (컴팩트 버전) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    min-width: 130px; /* 너비를 줄여 컴팩트하게 */
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.12);
+    border-radius: 4px;
+    padding: 8px 0;
+    list-style: none !important;
+    z-index: 10000;
+    border: 1px solid #eee;
+}
+
+.dropdown-content li {
+    margin: 0 !important;
+    list-style: none !important;
+}
+
+.dropdown-content li a {
+    padding: 10px 15px;
+    font-weight: 500;
+    text-align: center;
+    font-size: 14px;
+    color: #666 !important;
+    white-space: nowrap;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f8fbff;
+    color: #0696d7 !important;
+    text-decoration: none !important;
+}
+
+/* 마우스 올리면 드롭다운 표시 */
+.dropdown:hover .dropdown-content {
+    display: block;
+}

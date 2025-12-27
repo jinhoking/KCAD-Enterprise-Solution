@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cad.home.dao.BoardDao">
+
+    <select id="list" parameterType="hashmap" resultType="cad.home.dto.BoardDto">
+        SELECT * FROM (
+            SELECT A.*, ROWNUM as rNum FROM (
+                
+                SELECT 
+                    bId, 
+                    bName, 
+                    bTitle, 
+                    bContent, 
+                    bHit, 
+                    bDate, 
+                    fileName,
+                    bNotice,
+                    bJob,
+                    bDept,
+                    (SELECT COUNT(*) FROM reply WHERE bId = board.bId) AS replyCount
+                FROM board
+                
+                <if test="keyword != null and keyword != ''">
+                    WHERE 
+                    <choose>
+                        <when test="searchType == 'title'"> bTitle LIKE '%' || #{keyword} || '%' </when>
+                        <when test="searchType == 'content'"> bContent LIKE '%' || #{keyword} || '%' </when>
+                        <when test="searchType == 'writer'"> bName LIKE '%' || #{keyword} || '%' </when>
+                    </choose>
+                </if>
+                
+                ORDER BY NVL(bNotice, 'N') DESC, bId DESC
+                
+            ) A
+        )
+        WHERE rNum BETWEEN #{start} AND #{end}
+    </select>
+    
+    <select id="count" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) FROM board
+        <if test="keyword != null and keyword != ''">
+            WHERE 
+            <choose>
+                <when test="searchType == 'title'"> bTitle LIKE '%' || #{keyword} || '%' </when>
+                <when test="searchType == 'content'"> bContent LIKE '%' || #{keyword} || '%' </when>
+                <when test="searchType == 'writer'"> bName LIKE '%' || #{keyword} || '%' </when>
+            </choose>
+        </if>
+    </select>
+
+<insert id="write">
+    INSERT INTO BOARD (
+        BID, BNAME, BTITLE, BCONTENT, BDATE, 
+        BHIT, FILENAME, BNOTICE, BJOB, BDEPT
+    ) VALUES (
+        BOARD_SEQ.nextval, 
+        #{bName, jdbcType=VARCHAR}, 
+        #{bTitle, jdbcType=VARCHAR}, 
+        #{bContent, jdbcType=VARCHAR}, 
+        SYSDATE, 
+        0, 
+        #{fileName, jdbcType=VARCHAR}, 
+        #{bNotice, jdbcType=VARCHAR}, #{bJob, jdbcType=VARCHAR}, 
+        #{bDept, jdbcType=VARCHAR}
+    )
+</insert>
+
+    <select id="view" parameterType="int" resultType="cad.home.dto.BoardDto">
+        SELECT * FROM board WHERE bId = #{bId}
+    </select>
+    
+    <update id="upHit" parameterType="int">
+        UPDATE board SET bHit = bHit + 1 WHERE bId = #{bId}
+    </update>
+    
+    <select id="replyList" parameterType="int" resultType="cad.home.dto.ReplyDto">
+        SELECT * FROM reply WHERE bId = #{bId} ORDER BY rId DESC
+    </select>
+    
+    <insert id="replyWrite" parameterType="cad.home.dto.ReplyDto">
+        INSERT INTO reply (rId, bId, rName, rContent, rDate, r_Job, r_Dept)
+        VALUES (REPLY_SEQ.nextval, #{bId}, #{rName}, #{rContent}, SYSDATE,#{r_Job, jdbcType=VARCHAR}, #{r_Dept, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="modify" parameterType="cad.home.dto.BoardDto">
+        UPDATE board 
+        SET bTitle = #{bTitle}, bContent = #{bContent} 
+        WHERE bId = #{bId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM board WHERE bId = #{bId}
+    </delete>
+    
+</mapper>
