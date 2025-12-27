@@ -69,8 +69,8 @@
                             <option value="건축">건축</option>
                             <option value="전기">전기</option>
                             <option value="기계">기계</option>
-                            <option value="기계">토목</option>
-                            <option value="기계">소방</option>
+                            <option value="토목">토목</option>
+                            <option value="소방">소방</option>
                             <option value="기타">일반/기타</option>
                         </select>
                     </div>

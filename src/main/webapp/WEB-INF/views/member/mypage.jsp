@@ -7,6 +7,21 @@
 <title>KCAD Enterprise - My Page</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/mypage.css">
+<style>
+    /* select 박스 디자인을 기존 input과 통일 */
+    .grid-container select.form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: white;
+        font-size: 14px;
+        outline: none;
+    }
+    .grid-container select.form-control:focus {
+        border-color: #0696d7;
+    }
+</style>
 </head>
 <body>
 
@@ -17,7 +32,7 @@
         <h2><i class="fas fa-id-card"></i> 마이페이지</h2>
     </div>
 
-    <div id="successAlert" class="alert alert-success">
+    <div id="successAlert" class="alert alert-success" style="display:none;">
         <i class="fas fa-check-circle"></i> 회원 정보가 성공적으로 수정되었습니다.
     </div>
 
@@ -51,14 +66,30 @@
                     <label>이메일</label>
                     <input type="email" name="userEmail" value="${member.userEmail}">
                 </div>
+                
+                <%-- [수정] 담당 파트: 직접 입력 대신 선택 방식으로 변경 --%>
                 <div class="input-group">
-                    <label>부서</label>
-                    <input type="text" name="userDept" value="${member.userDept}">
+                    <label>담당 파트</label>
+                    <select name="userDept" class="form-control">
+                        <option value="건축" ${member.userDept == '건축' ? 'selected' : ''}>건축</option>
+                        <option value="전기" ${member.userDept == '전기' ? 'selected' : ''}>전기</option>
+                        <option value="기계" ${member.userDept == '기계' ? 'selected' : ''}>기계</option>
+                        <option value="토목" ${member.userDept == '토목' ? 'selected' : ''}>토목</option>
+                        <option value="소방" ${member.userDept == '소방' ? 'selected' : ''}>소방</option>
+                        <option value="기타" ${member.userDept == '기타' ? 'selected' : ''}>일반/기타</option>
+                    </select>
                 </div>
+
+                <%-- [수정] 직업 구분: 직접 입력 대신 선택 방식으로 변경 --%>
                 <div class="input-group">
-                    <label>직함</label>
-                    <input type="text" name="userJob" value="${member.userJob}">
+                    <label>직업 구분</label>
+                    <select name="userJob" class="form-control">
+                        <option value="설계자" ${member.userJob == '설계자' ? 'selected' : ''}>설계자</option>
+                        <option value="현장담당자" ${member.userJob == '현장담당자' ? 'selected' : ''}>현장담당자</option>
+                        <option value="관리자" ${member.userJob == '관리자' ? 'selected' : ''}>관리자/기타</option>
+                    </select>
                 </div>
+
                 <div class="input-group">
                     <label>연락처</label>
                     <input type="text" name="userPhone" value="${member.userPhone}">
@@ -80,7 +111,6 @@
 <script>
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
-        // 'status' 대신 컨트롤러와 동일하게 'msg'로 변경
         if (urlParams.get('msg') === 'success') {
             document.getElementById('successAlert').style.display = 'block';
             setTimeout(() => {
