@@ -33,7 +33,7 @@
 
 | 분류 | 기술 기술 (Technology) |
 | :--- | :--- |
-| **Backend** | Java 11, Spring Framework, Mybatis |
+| **Backend** | Java 17, Spring Framework, Mybatis |
 | **Database** | MySQL / Oracle (JdbcTemplate 활용) |
 | **Frontend** | JSP, JSTL, JavaScript, CSS3 |
 | **DevOps** | Git, GitHub |
